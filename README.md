@@ -4,8 +4,12 @@ This repository contains a Lean 4 proof demonstrating that a linear sieve (often
 1. the list of primes between 2 and 𝑛.
 2. the least factor function with domain between 2 and 𝑛.
 
-To try out the code:\\
+
+To try out the code
+
 You can just simply copy the code into https://live.lean-lang.org/.
 
-Important Note\\
+
+Important Note
+
 At the end of the file, I only proved the sieve’s correctness, I did not prove that the algorithm runs in linear time—only.
