@@ -2,7 +2,7 @@
 
 This repository contains a Lean 4 proof demonstrating that a linear sieve (often referred to as the “Euler sieve”) correctly generates:
 1. the list of primes between 2 and 𝑛.
-2. the least factor function between 2 and 𝑛.
+2. the least factor function with domain between 2 and 𝑛.
 
 Running the Code
 To try out the code:
