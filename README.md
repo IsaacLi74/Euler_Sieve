@@ -7,7 +7,7 @@ This repository contains a Lean 4 proof demonstrating that the Euler Sieve corre
 
 To try out the code:
 
-You can just simply copy the code into https://live.lean-lang.org/.
+You can just simply copy the code into https://live.lean-lang.org/ and run it with mathlib stable.
 
 
 Important Note:
