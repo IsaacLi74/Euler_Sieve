@@ -1,6 +1,6 @@
-# Formal proof of Linear Sieve in Lean 4
+# Formal proof of the Euler Sieve in Lean 4
 
-This repository contains a Lean 4 proof demonstrating that a linear sieve (often referred to as the “Euler sieve”) correctly generates:
+This repository contains a Lean 4 proof demonstrating that the Euler Sieve correctly generates:
 1. the list of primes between 2 and 𝑛.
 2. the least factor function with domain between 2 and 𝑛.
 
