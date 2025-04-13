@@ -192,7 +192,7 @@ def processPrimes (i : Nat) (f : Nat → Nat) (ps : List Nat) (n : Nat): Nat →
 
 -- current i, prime list primes, sieve f
 -- linear sieve from i to n
-def linearSieveAux (n i : Nat) (ps : List Nat) (f : Nat → Nat): (List Nat × (Nat → Nat)) :=
+def EulerSieveAux (n i : Nat) (ps : List Nat) (f : Nat → Nat): (List Nat × (Nat → Nat)) :=
   if i > n then (ps, f)
   else
     let (ps', f') :=
@@ -202,14 +202,14 @@ def linearSieveAux (n i : Nat) (ps : List Nat) (f : Nat → Nat): (List Nat × (
         (ps ++ [i], processPrimes i fNew (ps ++ [i]) n)
       else
         (ps, processPrimes i f ps n)
-    linearSieveAux n (i + 1) ps' f'
+    EulerSieveAux n (i + 1) ps' f'
 termination_by n + 1 - i
 
--- initial linearSieve
-def linearSieve (n : Nat) : (List Nat × (Nat → Nat)) :=
-  linearSieveAux n 2 [] (fun _ => 0)
+-- initial EulerSieve
+def EulerSieve (n : Nat) : (List Nat × (Nat → Nat)) :=
+  EulerSieveAux n 2 [] (fun _ => 0)
 
-#eval (linearSieve 20).1
+#eval (EulerSieve 20).1
 
 def processPrimes_complete (n i j : Nat)(hi: 2 ≤ i)
   (ps : sorted_bounded_list (i+1) (j+1))(hps: correct_PS ps)(f : Nat → Nat)
@@ -669,7 +669,7 @@ def processPrimes_complete (n i j : Nat)(hi: 2 ≤ i)
       simp
     · simp
 
-def linearSieveAux_complete (n i: Nat)(hi: 2 ≤ i)(hin: i ≤ n)
+def EulerSieveAux_complete (n i: Nat)(hi: 2 ≤ i)(hin: i ≤ n)
 (PS : final_PS i) (F : final_FS i n) (hF: ∀ m, F.1 m ≤ i): (final_PS n) × (final_FS n n) :=
   if h : i = n then by
     subst h
@@ -796,7 +796,7 @@ def linearSieveAux_complete (n i: Nat)(hi: 2 ≤ i)(hin: i ≤ n)
           have hFmi : f m ≤ i := hF m
           linarith
       let F' := processPrimes_complete n i 1 hi ⟨ newList, newList_sorted, newList_bounded ⟩ hps newF hf₁ hf₂ hf₃ hf₄ hf₅
-      exact linearSieveAux_complete n (i+1) hi' hi'n ⟨⟨ newList, newList_sorted, newList_bounded ⟩,hps⟩ F'.1 F'.2
+      exact EulerSieveAux_complete n (i+1) hi' hi'n ⟨⟨ newList, newList_sorted, newList_bounded ⟩,hps⟩ F'.1 F'.2
     else by
       let ⟨⟨ps, psProp1⟩, psProp2⟩ := PS
       let ⟨f, fProp⟩ := F
@@ -838,10 +838,10 @@ def linearSieveAux_complete (n i: Nat)(hi: 2 ≤ i)(hin: i ≤ n)
         apply le_trans (hF m)
         norm_num
       let F' := processPrimes_complete n i 1 hi psNew hps f fProp.1 fProp.2 hf₃ hf₄ hf₅
-      exact linearSieveAux_complete n (i+1) hi' hi'n ⟨psNew,hps⟩ F'.1 F'.2
+      exact EulerSieveAux_complete n (i+1) hi' hi'n ⟨psNew,hps⟩ F'.1 F'.2
 termination_by n-i
 
-def linearSieve_complete (n : Nat) (hn : 2 ≤ n) : final_PS n × final_FS n n :=
+def EulerSieve_complete (n : Nat) (hn : 2 ≤ n) : final_PS n × final_FS n n :=
   let PS_init : final_PS 2 :=
     ⟨ ⟨[2],
         by simp [list_sorted],
@@ -891,7 +891,7 @@ def linearSieve_complete (n : Nat) (hn : 2 ≤ n) : final_PS n × final_FS n n :
           have yval: y=2:= by linarith
           rw[xval,yval]
           norm_num⟩
-  linearSieveAux_complete n 2 (by norm_num) hn PS_init F_init (
+  EulerSieveAux_complete n 2 (by norm_num) hn PS_init F_init (
     by
     intro m
     simp [F_init, f, updateFunction]
@@ -903,4 +903,4 @@ def linearSieve_complete (n : Nat) (hn : 2 ≤ n) : final_PS n × final_FS n n :
       · rw [if_neg hm2]
         exact Nat.zero_le 2)
 
-#eval (linearSieve_complete 20 (by norm_num)).1.1.1
+#eval (EulerSieve_complete 20 (by norm_num)).1.1.1
