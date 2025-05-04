@@ -277,8 +277,8 @@ def processPrimes_complete (n i j : Nat)(hi: 2 ≤ i)
                   have hf4_applied : f ((i+1) * y) = ((i+1) * y).minFac := hf₄ y ⟨hy.1, hy'⟩
                   rw[← h] at hf4_applied
                   rw [hf4_applied]
-                  apply Rat.numDenCasesOn'.proof_1
-                  apply Nat.minFac_pos
+                  have pos_minfac: 0 < (x * y).minFac := Nat.minFac_pos (x*y)
+                  linarith
                 · have hcond' : (i + 1) * p > n := Or.resolve_left hcond hp
                   have hyp: y < p := by nlinarith
                   have hyj: ¬ ((j+1) ≤ y) := by
@@ -298,8 +298,8 @@ def processPrimes_complete (n i j : Nat)(hi: 2 ≤ i)
                   have hf4_applied : f ((i+1) * y) = ((i+1) * y).minFac := hf₄ y ⟨hy.1, hyj'⟩
                   rw[← h] at hf4_applied
                   rw [hf4_applied]
-                  apply Rat.numDenCasesOn'.proof_1
-                  apply Nat.minFac_pos
+                  have pos_minfac: 0 < (x * y).minFac := Nat.minFac_pos (x*y)
+                  linarith
             else
               have Hx : 2 ≤ x ∧ x ≤ i := by
                 constructor
@@ -482,8 +482,8 @@ def processPrimes_complete (n i j : Nat)(hi: 2 ≤ i)
                 have hf4_applied : f ((i+1) * y) = ((i+1) * y).minFac := hf₄ y ⟨hy.1, hy'⟩
                 rw [← h] at hf4_applied
                 rw [hf4_applied]
-                apply Rat.numDenCasesOn'.proof_1
-                apply Nat.minFac_pos
+                have pos_minfac: 0 < (x * y).minFac := Nat.minFac_pos (x*y)
+                linarith
               · have hcond' : (i+1) * p > n := Or.resolve_left hcond hp
                 have hyp : y < p := by nlinarith
                 have hyj : ¬ ((j+1) ≤ y) := by
@@ -503,8 +503,8 @@ def processPrimes_complete (n i j : Nat)(hi: 2 ≤ i)
                 have hf4_applied : f ((i+1) * y) = ((i+1) * y).minFac := hf₄ y ⟨hy.1, hyj'⟩
                 rw [← h] at hf4_applied
                 rw [hf4_applied]
-                apply Rat.numDenCasesOn'.proof_1
-                apply Nat.minFac_pos
+                have pos_minfac: 0 < (x * y).minFac := Nat.minFac_pos (x*y)
+                linarith
           else
             have Hx : 2 ≤ x ∧ x ≤ i := by
                 constructor
@@ -525,7 +525,7 @@ def processPrimes_complete (n i j : Nat)(hi: 2 ≤ i)
         exact ⟨Nat.le_trans p1_le_q q_le_x, x_upper⟩
         ⟩
       have hp : Nat.Prime p := by
-        have mem : p ∈ (p :: q :: ps') := List.mem_cons_self p (q :: ps')
+        have mem : p ∈ (p :: q :: ps') := by aesop
         have bound : (j+1) ≤ p ∧ p ≤ (i+1) := ps_props.2 p mem
         exact (hps p bound).mp mem
       have hps' : correct_PS ps_new := (tail_correct_PS hps rfl).2.2
@@ -633,7 +633,7 @@ def processPrimes_complete (n i j : Nat)(hi: 2 ≤ i)
             have bound_a : (j+1) ≤ a ∧ a ≤ (i+1) := by
               constructor
               · exact H
-              · have mem_p : p ∈ (p :: q :: ps') := List.mem_cons_self p (q :: ps')
+              · have mem_p : p ∈ (p :: q :: ps') := by aesop
                 have bound_p : (j+1) ≤ p ∧ p ≤ (i+1) := ps_props.2 p mem_p
                 exact Nat.le_trans ha.2 bound_p.2
             have a_in_ps : a ∈ (p :: q :: ps') := (hps a bound_a).mpr ha.1
