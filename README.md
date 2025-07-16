@@ -10,7 +10,7 @@ This repository contains a Lean 4 proof demonstrating that the Euler Sieve corre
 
 To try out the code:
 
-The code was compiled on ran the Lean4 v4.19.0 build for Linux Ubuntu. For now(5/4/2025), You can just simply copy the code into https://live.lean-lang.org/ and run it directly.
+The code was originally compiled on ran the Lean4 v4.19.0 build for Linux Ubuntu. For now(7/16/2025), You can just simply copy the code into https://live.lean-lang.org/ and run it directly.
 
 
 Important Note:
