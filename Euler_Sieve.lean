@@ -103,7 +103,7 @@ lemma list_sorted_tail (l : List Nat) (h : list_sorted l) : list_sorted l.tail :
       simp [list_sorted]
     | cons hd2 tl2 =>
       simp [list_sorted] at h
-      simp [list_sorted]
+      simp
       exact h.2
 
 lemma tail_correct_PS {i j : ℕ} {ps : sorted_bounded_list i j}
@@ -866,7 +866,7 @@ def EulerSieve_complete (n : Nat) (hn : 2 ≤ n) : final_PS n × final_FS n n :=
     ⟨ f ,
       by
         intro m
-        simp [f, processPrimes, updateFunction]
+        simp [f, updateFunction]
         split_ifs with h4 h2
         · right
           rw[h4]
